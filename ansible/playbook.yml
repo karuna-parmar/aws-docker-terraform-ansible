@@ -1,0 +1,24 @@
+---
+- name: Install Docker on EC2
+  hosts: web
+  become: yes
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.10
+
+  tasks:
+
+    - name: Update apt
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
